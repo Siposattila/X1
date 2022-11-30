@@ -12,6 +12,7 @@ use Symfony\Component\Process\Process;
 
 class CardSeedHelper
 {
+    // TODO: Might be better to not use Process! Instead use this class to make the cards.json. :)
     private const CARDS_JSON = __DIR__."/cards/cards.json";
 
     public function __construct(
