@@ -14,21 +14,22 @@ services:
             - php-fpm
     php-fpm:
         container_name: x1-fpm
-        command: bash -c "php-fpm -F"
+        command: bash -c "/usr/bin/supervisord && php-fpm -F"
         build:
             context: .
             dockerfile: ./.docker/php-fpm/Dockerfile
         restart: always
         volumes:
             - .:/app
+            - ./.docker/supervisor:/etc/supervisor/conf.d
     caddy:
         container_name: x1-caddy
         image: dunglas/mercure
         restart: always
         environment:
             SERVER_NAME: ':80'
-            MERCURE_PUBLISHER_JWT_KEY: "!ChangeMe!"
-            MERCURE_SUBSCRIBER_JWT_KEY: "!ChangeMe!"
+            MERCURE_PUBLISHER_JWT_KEY: "!ChangeThisMercureHubJWTSecretKey!"
+            MERCURE_SUBSCRIBER_JWT_KEY: "!ChangeThisMercureHubJWTSecretKey!"
         command: /usr/bin/caddy run -config /etc/caddy/Caddyfile.dev
         ports:
             - "8081:80"
