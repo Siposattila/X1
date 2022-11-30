@@ -21,6 +21,32 @@ services:
         restart: always
         volumes:
             - .:/app
+    caddy:
+        container_name: x1-caddy
+        image: dunglas/mercure
+        restart: always
+        environment:
+            SERVER_NAME: ':80'
+            MERCURE_PUBLISHER_JWT_KEY: "!ChangeMe!"
+            MERCURE_SUBSCRIBER_JWT_KEY: "!ChangeMe!"
+        command: /usr/bin/caddy run -config /etc/caddy/Caddyfile.dev
+        ports:
+            - "8081:80"
+        volumes:
+            - ./.docker/caddy_data:/data
+            - ./.docker/caddy_config:/config
+    rabbitmq:
+        container_name: x1-rabbitmq
+        image: rabbitmq:3-management-alpine
+        restart: always
+        environment:
+            RABBITMQ_ERLANG_COOKIE: "ZQLSSSKDQPYFHWEROOAH"
+            RABBITMQ_DEFAULT_USER: "rabbitmq"
+            RABBITMQ_DEFAULT_PASS: "rabbitmq"
+            RABBITMQ_DEFAULT_VHOST: "/"
+        ports:
+            - 5672:5672
+            - 15672:15672
     db:
         container_name: x1-db
         image: mariadb:latest

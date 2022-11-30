@@ -9,8 +9,6 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-.docker/db
-
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
 /phpunit.xml
@@ -20,3 +18,7 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+.docker/db
+.docker/caddy_config
+.docker/caddy_data
