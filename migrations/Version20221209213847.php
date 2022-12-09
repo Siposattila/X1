@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221129213515 extends AbstractMigration
+final class Version20221209213847 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20221129213515 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE card CHANGE card card LONGTEXT DEFAULT NULL COMMENT \'Base64 representation of a card.\'');
+        $this->addSql('ALTER TABLE player CHANGE game_id game_id INT DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE card CHANGE card card LONGTEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE player CHANGE game_id game_id INT NOT NULL');
     }
 }

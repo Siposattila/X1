@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 class BaseEntity
 {
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     protected ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     protected ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\PrePersist]

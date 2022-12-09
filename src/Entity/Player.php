@@ -37,7 +37,7 @@ class Player extends BaseEntity
     #[ORM\Column(nullable: true)]
     private ?int $chips = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $gameId = null;
 
     #[ORM\OneToOne(targetEntity: Game::class)]

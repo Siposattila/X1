@@ -21,4 +21,9 @@ class PlayerService
     {
         $this->playerRepository->remove($player, true);
     }
+
+    public function getPlayerByName(string $name): Player
+    {
+        return $this->playerRepository->findOneBy(["name" => $name]);
+    }
 }

@@ -23,8 +23,11 @@ class Game extends BaseEntity
     #[ORM\Column(nullable: true)]
     private ?string $gameId = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $masterId = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $playedCards = null;
 
     #[ORM\OneToOne(targetEntity: Player::class)]
     #[ORM\JoinColumn(name: "master_id", nullable: true, referencedColumnName: "id")]
@@ -48,6 +51,18 @@ class Game extends BaseEntity
     public function setMasterId(?string $masterId): self
     {
         $this->masterId = $masterId;
+
+        return $this;
+    }
+
+    public function getPlayedCards(): ?string
+    {
+        return $this->playedCards;
+    }
+
+    public function setPlayedCards(?string $playedCards): self
+    {
+        $this->playedCards = $playedCards;
 
         return $this;
     }
