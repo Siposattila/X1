@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CardController extends AbstractController
 {
+    // TODO: implement
     #[Route('/card', name: 'app_card')]
     public function index(): JsonResponse
     {

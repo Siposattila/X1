@@ -2,18 +2,29 @@
 
 namespace App\Controller\Player;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Player;
+use App\ParamResolver\Param;
+use App\Service\PlayerService;
+use App\Controller\AbstractApiController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ApiPlayerController extends AbstractController
+#[Route("/api/player", name: "app_api_player_")]
+class ApiPlayerController extends AbstractApiController
 {
-    #[Route('/api/player', name: 'app_api_player')]
-    public function index(): JsonResponse
+    public function __construct(
+        private readonly PlayerService $playerService
+    ) {
+    }
+
+    #[Route("", name: "create", methods: ["POST"])]
+    public function create(#[Param(validate: true)] Player $player): JsonResponse
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ApiPlayerController.php',
-        ]);
+        $this->playerService->save($player, true);
+
+        return $this->handleSuccess([
+            "name" => $player->getName(),
+            "email" => $player->getEmail()
+        ], true);
     }
 }

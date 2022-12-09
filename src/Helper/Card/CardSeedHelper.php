@@ -31,8 +31,8 @@ class CardSeedHelper
                     $newCard->setColour(CardConstant::getColourByName($colour));
                     $newCard->setSymbol($card["symbol"]);
                     $newCard->setCard($card["card"]);
-                    $newCard->setCreatedAt(new DateTimeImmutable("now", new DateTimeZone("Europe/Budapest")));
-                    $newCard->setUpdatedAt(new DateTimeImmutable("now", new DateTimeZone("Europe/Budapest")));
+                    // $newCard->setCreatedAt(new DateTimeImmutable("now", new DateTimeZone("Europe/Budapest")));
+                    // $newCard->setUpdatedAt(new DateTimeImmutable("now", new DateTimeZone("Europe/Budapest")));
                     $this->cardRepository->save($newCard, true);
                 }
             }

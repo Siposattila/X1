@@ -6,6 +6,8 @@ use App\Constant\CardConstant;
 use App\Helper\Card\CardSeedHelper;
 use App\Messenger\TestPublish;
 use App\Repository\CardRepository;
+use App\Repository\GameRepository;
+use App\Repository\PlayerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mercure\Update;
@@ -32,14 +34,22 @@ class TestController extends AbstractController
                 <title>X1 cards</title>
             </head>
             <body>
+                <a href='/list'>Games and Players</a>
                 <a href='/seed'>Seed</a>
                 <a href='/cards'>Cards</a>
                 <a href='/publishClass'>Publish Class</a>
                 <a href='/publishMercure'>Publish Mercure</a>
-                <a href='/test.html'>Test html</a>
+                <a href='/testPublish.html'>Test publish html</a>
+                <a href='/testGame.html'>Test game html</a>
             </body>
             </html>"
         );
+    }
+
+    #[Route("/list", name: "list")]
+    public function list(GameRepository $gameRepository, PlayerRepository $playerRepository): Response
+    {
+        dd($gameRepository->findAll(), $playerRepository->findAll());
     }
 
     #[Route("/seed", name: "seed")]

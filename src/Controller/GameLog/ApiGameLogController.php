@@ -2,11 +2,11 @@
 
 namespace App\Controller\GameLog;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\AbstractApiController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ApiGameLogController extends AbstractController
+class ApiGameLogController extends AbstractApiController
 {
     #[Route('/api/game/log', name: 'app_api_game_log')]
     public function index(): JsonResponse

@@ -3,40 +3,61 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use App\Validator\Constraint\UniqueGameId;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
-class Game
+#[ORM\HasLifecycleCallbacks]
+class Game extends BaseEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[NotNull]
+    #[NotBlank]
+    #[UniqueGameId]
     #[ORM\Column(nullable: true)]
-    private ?int $gameId = null;
+    private ?string $gameId = null;
+
+    #[ORM\Column]
+    private ?int $masterId = null;
 
     #[ORM\OneToOne(targetEntity: Player::class)]
     #[ORM\JoinColumn(name: "master_id", nullable: true, referencedColumnName: "id")]
     private ?Player $master = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[NotNull]
+    #[NotBlank]
+    #[ORM\Column(nullable: true)]
+    private ?int $status = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getGameId(): ?int
+    public function getMasterId(): ?string
+    {
+        return $this->masterId;
+    }
+
+    public function setMasterId(?string $masterId): self
+    {
+        $this->masterId = $masterId;
+
+        return $this;
+    }
+
+    public function getGameId(): ?string
     {
         return $this->gameId;
     }
 
-    public function setGameId(?int $gameId): self
+    public function setGameId(?string $gameId): self
     {
         $this->gameId = $gameId;
 
@@ -55,26 +76,14 @@ class Game
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getStatus(): ?int
     {
-        return $this->createdAt;
+        return $this->status;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setStatus(?int $status): self
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
+        $this->status = $status;
 
         return $this;
     }

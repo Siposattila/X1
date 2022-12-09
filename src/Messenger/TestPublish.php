@@ -2,7 +2,6 @@
 
 namespace App\Messenger;
 
-use Symfony\Component\Mercure\Update;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class TestPublish extends AbstractPublish

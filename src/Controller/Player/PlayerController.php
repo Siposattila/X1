@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PlayerController extends AbstractController
 {
+    // TODO: implement
     #[Route('/player', name: 'app_player')]
     public function index(): JsonResponse
     {

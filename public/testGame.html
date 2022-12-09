@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Test</title>
+</head>
+<body>
+    <h1>Test game</h1>
+</body>
+<script>
+    // TODO: make game (request which creates a game and then get game id)
+
+    // TODO: subscribe to the game id topic to listen for events
+    const url = new URL("http://localhost:8081/.well-known/mercure");
+    url.searchParams.append("topic", "testPublish");
+
+    const eventSource = new EventSource(url);
+    eventSource.onmessage = event => {
+        console.log(JSON.parse(event.data));
+    }
+
+    // TODO: be able to join with other instances
+    // TODO: wait for atleast another player before starting
+    // TODO: show other joined instances
+    // TODO: other game mechanics
+</script>
+</html>

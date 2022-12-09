@@ -5,32 +5,35 @@ namespace App\Entity;
 use App\Repository\CardRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 #[ORM\Entity(repositoryClass: CardRepository::class)]
-class Card
+#[ORM\HasLifecycleCallbacks]
+class Card extends BaseEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[NotNull]
+    #[NotBlank]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
+    #[NotNull]
+    #[NotBlank]
     #[ORM\Column(nullable: true)]
     private ?int $colour = null;
 
+    #[NotNull]
+    #[NotBlank]
     #[ORM\Column(type: Types::TEXT, nullable: true, options: ["comment" => "Base64 representation of a card."])]
     private ?string $card = null;
 
     #[ORM\Column(length: 3, nullable: true)]
     private ?string $symbol = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -81,30 +84,6 @@ class Card
     public function setSymbol(?string $symbol): self
     {
         $this->symbol = $symbol;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

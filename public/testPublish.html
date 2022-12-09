@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Test</title>
+    <title>Publish Test</title>
 </head>
 <body>
-    <h1>Test html</h1>
+    <h1>Test publish</h1>
 </body>
 <script>
-    // URL is a built-in JavaScript class to manipulate URLs
     const url = new URL("http://localhost:8081/.well-known/mercure");
     url.searchParams.append("topic", "testPublish");
-    // Subscribe to updates of several Book resources
-    // u.searchParams.append("topic", "http://example.com/books/2");
-    // All Review resources will match this pattern
-    // u.searchParams.append("topic", "http://example.com/reviews/{id}");
+    // url.searchParams.append("topic", "http://example.com/books/2");
+    // url.searchParams.append("topic", "http://example.com/reviews/{id}");
 
     const eventSource = new EventSource(url);
     eventSource.onmessage = event => {
