@@ -17,21 +17,21 @@ class GameLog extends BaseEntity
     #[ORM\Column(nullable: true)]
     private ?int $gameId = null;
 
-    #[ORM\OneToOne(targetEntity: Game::class)]
+    #[ORM\ManyToOne(targetEntity: Game::class)]
     #[ORM\JoinColumn(name: "game_id", nullable: true, referencedColumnName: "id")]
     private ?Game $game = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $cardId = null;
 
-    #[ORM\OneToOne(targetEntity: Card::class)]
+    #[ORM\ManyToOne(targetEntity: Card::class)]
     #[ORM\JoinColumn(name: "card_id", nullable: true, referencedColumnName: "id")]
     private ?Card $card = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $playerId = null;
 
-    #[ORM\OneToOne(targetEntity: Player::class)]
+    #[ORM\ManyToOne(targetEntity: Player::class)]
     #[ORM\JoinColumn(name: "player_id", nullable: true, referencedColumnName: "id")]
     private ?Player $player = null;
 

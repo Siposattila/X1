@@ -8,7 +8,6 @@ use App\Entity\Player;
 use App\Exception\GameNotFoundException;
 use App\Exception\GameNotJoinableException;
 use App\Helper\UniqueIdHelper;
-use App\Messenger\GamePublish;
 use App\Repository\GameRepository;
 use App\Repository\PlayerRepository;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -37,7 +36,7 @@ class GameService
         $this->createGameWithMaster($player);
     }
 
-    public function createGame(Player $player = null): void
+    public function createGame(Player $player = null): string
     {
         $newGame = new Game();
         $newGame->setGameId(UniqueIdHelper::uniqueId());
@@ -48,13 +47,14 @@ class GameService
         }
 
         $this->gameRepository->save($newGame, true);
-        new GamePublish($this->messageBusInterface, $newGame->getGameId());
+        
+        return $newGame->getGameId();
     }
 
-    public function joinGame(Game $game, Player $player): string
+    public function joinGame(Game $game, Player $player): array
     {
         if (!empty($player->getGame())) {
-            return $player->getGame()->getGameId();
+            return $player->getGame()->getPlayers();
         }
 
         if ($game->getId() == null) {
@@ -68,7 +68,7 @@ class GameService
         $player->setGameId($game->getId());
         $this->playerRepository->save($player, true);
         
-        return $game->getGameId();
+        return $game->getPlayers();
     }
 
     public function quitGame(Player $player): void

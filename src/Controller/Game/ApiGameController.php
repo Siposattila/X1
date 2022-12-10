@@ -21,17 +21,13 @@ class ApiGameController extends AbstractApiController
     #[Route("", name: "create", methods: ["POST"])]
     public function create(): JsonResponse
     {
-        $this->gameService->createGame();
-
-        return $this->handleSuccess([], true);
+        return $this->handleSuccess(["gameId" => $this->gameService->createGame()], [], true);
     }
 
     #[Route("/{gameId}/{id}", name: "join", methods: ["GET"])]
     public function join(#[Param(attribute: "gameId", attributeType: "string")] Game $game, #[Param] Player $player): JsonResponse
     {
-        return $this->handleSuccess(
-            ["gameId" => $this->gameService->joinGame($game, $player)]
-        );
+        return $this->handleSuccess(["players" => $this->gameService->joinGame($game, $player)], ["player-public"]);
     }
 
     #[Route("/{id}", name: "quit", methods: ["GET"])]

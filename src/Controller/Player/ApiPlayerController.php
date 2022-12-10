@@ -25,10 +25,7 @@ class ApiPlayerController extends AbstractApiController
         $player->setChips(PlayerConstant::PLAYER_STARTING_CHIPS);
         $this->playerService->save($player, true);
 
-        return $this->handleSuccess([
-            "name" => $player->getName(),
-            "email" => $player->getEmail()
-        ], true);
+        return $this->handleSuccess(["player" => $player], ["player-private"], true);
     }
 
     #[Route("/login", name: "login", methods: ["POST"])]
@@ -36,9 +33,6 @@ class ApiPlayerController extends AbstractApiController
     {
         $player = $this->playerService->getPlayerByName($player->getName());
 
-        return $this->handleSuccess([
-            "name" => $player->getName(),
-            "email" => $player->getEmail()
-        ], true);
+        return $this->handleSuccess(["player" => $player], ["player-private"]);
     }
 }

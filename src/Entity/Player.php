@@ -6,6 +6,7 @@ use App\Repository\PlayerRepository;
 use App\Validator\Constraint\UniquePlayerEmail;
 use App\Validator\Constraint\UniquePlayerName;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -23,6 +24,7 @@ class Player extends BaseEntity
     #[NotNull]
     #[NotBlank]
     #[UniquePlayerName]
+    #[Groups(["player-admin", "player-public", "player-private"])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
@@ -30,17 +32,20 @@ class Player extends BaseEntity
     #[NotBlank]
     #[Email]
     #[UniquePlayerEmail]
+    #[Groups(["player-admin", "player-private"])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
+    #[Groups(["player-admin", "player-public", "player-private"])]
     #[PositiveOrZero]
     #[ORM\Column(nullable: true)]
     private ?int $chips = null;
 
+    #[Groups(["player-admin"])]
     #[ORM\Column(nullable: true)]
     private ?int $gameId = null;
 
-    #[ORM\OneToOne(targetEntity: Game::class)]
+    #[ORM\ManyToOne(targetEntity: Game::class, inversedBy: "players")]
     #[ORM\JoinColumn(name: "game_id", nullable: true, referencedColumnName: "id")]
     private ?Game $game = null;
 
